@@ -62,6 +62,68 @@ docker image prune
 
 docker image prune -a 
 
+13. The file created in container is lost when container is removed , but not when container is stopped. Restarting same container , the file can be accessed.
 
+14. docker volume , named volume 
 
+docker run -d -p 3000:80  --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumes
+
+15. volumes currently managed by docker 
+
+   docker volume ls
    
+16. removing a volume 
+   
+    docker volume rm VOL_NAME
+
+    or
+
+    docker volume prune
+
+17. named bind mout
+
+docker run \
+   -d \
+   -p 3000:80   \
+   --name feedback-app \
+   -v feedback:/app/feedback \
+   -v "/Users/makaranddeshpande/learnDocker/dockerstudy/docker-volume-study:/app" \
+   feedback-node:volumes
+
+docker run \  ##NOTE : separate line commands does not run with docker run
+  -d \
+  -p 3000:80   \
+  --name feedback-app 
+  -v feedback:/app/feedback   ## named volume
+  -v "/Users/makaranddeshpande/learnDocker/dockerstudy/docker-volume-study:/app" \  ##Bind mount , making it docker read only
+  -v /app/node_modules \    ## this is done to avoid over-writing the path of code   , anonymous volume 
+  feedback-node:volumes
+
+18.
+     docker run -v /app/feedback :-> anonymous volume  , attached to container which is removed when container is rmoved , but it sustains stop-start , can not be unused   
+                                     to share data across containers. 
+
+                                     They are useful to lock in some folder/data not to make them editable.
+
+                                     They can be created by putting path in Dockerfile as well.
+
+     docker run -v feddback:/app/feedback :-> named volume  , can not be created in Dockerfile , but they have to be created during docker run.
+
+                                    They can be shared across containers. They sustain container removal/start/stop.
+
+     docker run -v <absolute-path-from-local>:/app :--> bind mount useful to reflect code directly in testing duering dev , but not useful during production.
+
+19. 
+
+docker run  -d  -p 3000:80 --name feedback-app   -v feedback:/app/feedback   -v "/Users/makaranddeshpande/learnDocker/dockerstudy/docker-volume-study:/app:ro" -v "/app/temp"  -v /app/node_modules feedback-node:volumes
+
+20. environnmentvariable 
+
+docker run  -d  -p 3001:8000 --env PORT=8000 --name feedback-app-env   -v feedback:/app/feedback   -v "/Users/makaranddeshpande/learnDocker/dockerstudy/docker-volume-study:/app:ro" -v "/app/temp"  -v /app/node_modules feedback-node:env
+
+21. environnmentvariable through file
+
+docker run  -d  -p 3001:8000 --env-file .env --name feedback-app-env   -v feedback:/app/feedback   -v "/Users/makaranddeshpande/learnDocker/dockerstudy/docker-volume-study:/app:ro" -v "/app/temp"  -v /app/node_modules feedback-node:env
+
+22. ARGuments 
+
