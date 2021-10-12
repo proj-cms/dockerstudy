@@ -125,5 +125,13 @@ docker run  -d  -p 3001:8000 --env PORT=8000 --name feedback-app-env   -v feedba
 
 docker run  -d  -p 3001:8000 --env-file .env --name feedback-app-env   -v feedback:/app/feedback   -v "/Users/makaranddeshpande/learnDocker/dockerstudy/docker-volume-study:/app:ro" -v "/app/temp"  -v /app/node_modules feedback-node:env
 
-22. ARGuments 
+22. ARGuments provided during building an image , but this argument is provided in Dockerfile using ARG layer.
 
+docker build -t feedback-node:dev --build-arg DEFAULT_PORT=8000 .
+
+23. docker image to local host communication - netwrok 
+
+   host.docker.internal
+
+24.
+   docker container inspect <container-name>
