@@ -135,3 +135,49 @@ docker build -t feedback-node:dev --build-arg DEFAULT_PORT=8000 .
 
 24.
    docker container inspect <container-name>
+
+25. docket ntwork 
+
+ docker network create favorites-net
+ docker network ls
+
+ docker run -d --name favorites --network favorites-net --rm -p 3000:3000 favorites-node
+ docker run -d --name mongodb   --network favorites-net mongo
+
+24. 
+ run mongo locally 
+
+docker run --name mongodb --rm -d -p 27017:27017  mongo 
+
+docker run --name goals-backend --rm -d -p 80:80 goals-node
+
+docker run --name goals-frontend --rm -p 3000:3000 -it goals-react
+
+docker network create goals-net
+
+docker run --name mongodb --rm -d  --network goals-net mongo 
+
+docker run --name goals-backend --rm -d --network goals-net -p 80:80 goals-node
+
+docker run --name goals-frontend --rm  -it -p 3000:3000 goals-react
+
+---- running with volume now fo data persistence ----
+docker run --name mongodb -v data:/data/db --rm -d --network goals-net  mongo 
+
+docker run --name mongodb -d --rm -v data:/data/db   --network goals-net  -e MONGO_INITDB_ROOT_USERNAME=max -e MONGO_INITDB_ROOT_PASSWORD=secret mongo 
+
+docker run --name goals-backend --rm --network goals-net -p 80:80 goals-node
+
+-e MONGO_INITDB_ROOT_USERNAME=max -e MONGO_INITDB_ROOT_PASSWORD=secret
+
+=========================
+docker run --name mongodb -v data:/data/db --rm -d --network goals-net  mongo 
+
+docker run  --name goals-backend  --rm -d   -v logs:/app/logs -v "/Users/makaranddeshpande/learnDocker/dockerstudy/multi-02-finished/backend":/app -v /app/node_modules --network goals-net -p 80:80  goals-node
+
+working image runs as of 16 Oct 2021
+
+mongo: docker run --name mongodb -v data:/data/db --rm -d --network goals-net  mongo
+
+golas-backend : docker run  --name goals-backend  --rm -d   -v logs:/app/logs -v "/Users/makaranddeshpande/learnDocker/dockerstudy/multi-02-finished/backend":/app -v /app/node_modules --network goals-net -p 80:80  goals-node
+
