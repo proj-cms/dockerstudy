@@ -3,7 +3,8 @@ services:
   mongodb:
     image: "mongo"
     volumes: 
-      - data:/data/db      
+      - data:/data/db
+    container_name: mongodb      
   backend:
     build: ./backend
     ports:
