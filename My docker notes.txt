@@ -181,3 +181,20 @@ mongo: docker run --name mongodb -v data:/data/db --rm -d --network goals-net  m
 
 golas-backend : docker run  --name goals-backend  --rm -d   -v logs:/app/logs -v "/Users/makaranddeshpande/learnDocker/dockerstudy/multi-02-finished/backend":/app -v /app/node_modules --network goals-net -p 80:80  goals-node
 
+
+
+25. Different ways of running commands 
+
+
+docker run -it -v /Users/makaranddeshpande/learnDocker/dockerstudy/utility-contianers:/app node-util npm init
+
+
+with entry point in docker file 
+
+docker run -it -v /Users/makaranddeshpande/learnDocker/dockerstudy/utility-contianers:/app node-util  init
+
+dcoker-compose up -d
+
+docker-compose down -v
+
+docker-compose --rm run <service-name-from-yaml> 
