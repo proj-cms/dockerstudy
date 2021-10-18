@@ -198,3 +198,9 @@ dcoker-compose up -d
 docker-compose down -v
 
 docker-compose --rm run <service-name-from-yaml> 
+
+docker-compose run --rm composer create-project --prefer-dist laravel/laravel .
+
+docker-compose up -d server php mysql
+
+docker-compose up -d --build server
